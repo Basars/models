@@ -11,18 +11,50 @@ from basars.models import create_stairs_vision_transformer, create_proj_vision_t
 from basars.metrics import MaskedThresholdBinaryIoU
 from basars.datasets import load_dataset
 
-print()
-print('Preparing strategy for distributed training if available...')
-strategy = tf.distribute.MirroredStrategy()
 
-model_type = 'stairs'
-num_classes = 5
+parser = argparse.ArgumentParser(description='Polyp Segmentation and Phase Classification from Endoscopic Images',
+                                 formatter_class=argparse.RawTextHelpFormatter)
+
+parser.add_argument('--type',
+                    required=True,
+                    choices=['stairs', 'proj'],
+                    default='stairs',
+                    help='The type of transformer model')
+parser.add_argument('--num-classes',
+                    required=True,
+                    default=5,
+                    help='Number of classes to be classified.')
+parser.add_argument('--epochs',
+                    required=True,
+                    default=1290,
+                    help='Epochs that how many times the model would be trained')
+parser.add_argument('--batch_size',
+                    required=True,
+                    default=64,
+                    help='The batch size')
+parser.add_argument('--buffer_size',
+                    required=True,
+                    default=1024,
+                    help='The buffer size for shuffling datasets')
+parser.add_argument('--multiprocessing-workers',
+                    default=64,
+                    help='Number of workers for prefetching datasets')
+parser.add_argument('--cache-dataset',
+                    default=True,
+                    help='True to cache datasets on memory otherwise don\'t')
+
+args = parser.parse_args()
+
+model_type = args.type
+num_classes = args.num_classes
 model_name = 'basars-{}'.format(model_type)
-buffer_size = 1024
-batch_size = 64
-epochs = 1290
-multiprocessing_workers = 64
+buffer_size = args.buffer_size
+batch_size = args.batch_size
+epochs = args.epochs
+multiprocessing_workers = args.multiprocessing_workers
+imgsize = 224
 
+# TODO: Change to command-line arguments
 train_paths = ('datasets/train', 'datasets/train_masks', 'datasets/train_labels.csv')
 test_paths = ('datasets/test', 'datasets/test_masks', 'datasets/test_labels.csv')
 valid_paths = ('datasets/valid', 'datasets/valid_masks', 'datasets/valid_labels.csv')
@@ -33,6 +65,10 @@ elif model_type == 'proj':
     model_loader = create_proj_vision_transformer
 else:
     raise ValueError('Invalid model type: {}. Only \'stairs\' and \'proj\' are valid.'.format(model_type))
+
+print()
+print('Preparing strategy for distributed training if available...')
+strategy = tf.distribute.MirroredStrategy()
 
 print()
 print('Compiling \'{}\'...'.format(model_name))
@@ -71,7 +107,7 @@ callbacks = [ModelCheckpoint('{}-best-loss.h5'.format(model_name),
 print()
 print('Preparing datasets...')
 
-datasets = load_dataset(train_paths, test_paths, valid_paths, cache=True, imgsize=224, num_classes=num_classes)
+datasets = load_dataset(train_paths, test_paths, valid_paths, cache=args.cache, imgsize=imgsize, num_classes=num_classes)
 print('{} datasets prepared.'.format(len(datasets)))
 
 train_dataset = datasets['train']
