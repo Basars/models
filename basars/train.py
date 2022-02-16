@@ -19,25 +19,25 @@ parser.add_argument('--type',
                     required=True,
                     choices=['stairs', 'proj'],
                     default='stairs',
-                    help='The type of transformer model')
+                    help='The type of transformer model. Default value is \'stairs\'')
 parser.add_argument('--num-classes',
                     default=5,
-                    help='Number of classes to be classified.')
+                    help='Number of classes to be classified. Default value is 5')
 parser.add_argument('--epochs',
                     default=1290,
-                    help='Epochs that how many times the model would be trained')
+                    help='Epochs that how many times the model would be trained. Default value is 1290')
 parser.add_argument('--batch_size',
                     default=64,
-                    help='The batch size')
+                    help='The batch size. Default value is 64')
 parser.add_argument('--buffer_size',
                     default=1024,
-                    help='The buffer size for shuffling datasets')
+                    help='The buffer size for shuffling datasets. Default value is 1024')
 parser.add_argument('--multiprocessing-workers',
                     default=64,
-                    help='Number of workers for prefetching datasets')
+                    help='Number of workers for prefetching datasets. Default value is 64')
 parser.add_argument('--cache-dataset',
                     default=True,
-                    help='True to cache datasets on memory otherwise don\'t')
+                    help='True to cache datasets on memory otherwise don\'t. Default value is True')
 
 args = parser.parse_args()
 

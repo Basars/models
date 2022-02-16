@@ -9,6 +9,32 @@ pip install git+https://github.com/Basars/trans-unet.git
 pip install git+https://github.com/Basars/basars-addons.git
 ```
 
+### Training Your Own Basars
+```
+usage: python -m basars.train 
+                [-h] --type {stairs,proj}
+                [--num-classes NUM_CLASSES] [--epochs EPOCHS] 
+                [--batch_size BATCH_SIZE] [--buffer_size BUFFER_SIZE]
+                [--multiprocessing-workers MULTIPROCESSING_WORKERS] [--cache-dataset CACHE_DATASET]
+
+Polyp Segmentation and Phase Classification from Endoscopic Images
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --type {stairs,proj}  The type of transformer model. Default value is 'stairs'
+  --num-classes NUM_CLASSES
+                        Number of classes to be classified. Default value is 5
+  --epochs EPOCHS       Epochs that how many times the model would be trained. Default value is 1290
+  --batch_size BATCH_SIZE
+                        The batch size. Default value is 64
+  --buffer_size BUFFER_SIZE
+                        The buffer size for shuffling datasets. Default value is 1024
+  --multiprocessing-workers MULTIPROCESSING_WORKERS
+                        Number of workers for prefetching datasets. Default value is 64
+  --cache-dataset CACHE_DATASET
+                        True to cache datasets on memory otherwise don't. Default value is True
+```
+
 ### Configuration Guide
 Refer the repository: [final-experiments](https://github.com/Basars/final-experiments)
 
