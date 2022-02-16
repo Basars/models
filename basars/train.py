@@ -75,6 +75,7 @@ else:
 print()
 print('Preparing strategy for distributed training if available...')
 strategy = tf.distribute.MirroredStrategy()
+batch_size *= strategy.num_replicas_in_sync
 
 print()
 print('Compiling \'{}\'...'.format(model_name))
@@ -121,7 +122,7 @@ train_dataset = datasets['train']
 valid_dataset = datasets['valid']
 test_dataset = datasets['test']
 
-steps_per_epoch = int(num_images / epochs)
+steps_per_epoch = int(num_images / batch_size)
 
 train_dataset = train_dataset.shuffle(buffer_size).batch(batch_size).repeat()
 train_dataset = train_dataset.prefetch(tf.data.experimental.AUTOTUNE)
