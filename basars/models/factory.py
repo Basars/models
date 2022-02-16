@@ -42,11 +42,13 @@ def attempt_to_download(filename, repo='Basars/models'):
 def create_proj_vision_transformer(name='basars-proj'):
     model = Sequential(name=name, layers=[
         VisionTransformer(input_shape=(224, 224, 3),
-                          num_classes=5),
+                          num_classes=5,
+                          encoder_trainable=False),
         Conv2D(5, kernel_size=(1, 1), padding='same', activation='softmax', use_bias=False)
     ])
     filepath = attempt_to_download('basars-cls5-proj.h5')
     model.load_weights(filepath)
+    model.trainable = False
     return model
 
 
@@ -55,9 +57,11 @@ def create_stairs_vision_transformer(name='basars-stairs'):
         VisionTransformer(input_shape=(224, 224, 3),
                           upsample_channels=(256, 128, 64, 32),
                           output_kernel_size=3,
-                          num_classes=16),
+                          num_classes=16,
+                          encoder_trainable=False),
         Conv2D(5, kernel_size=(1, 1), padding='same', activation='softmax', use_bias=False)
     ])
     filepath = attempt_to_download('basars-cls5-stairs.h5')
     model.load_weights(filepath)
+    model.trainable = False
     return model
