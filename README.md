@@ -10,6 +10,8 @@ pip install git+https://github.com/Basars/basars-addons.git
 ```
 
 ### Training Your Own Basars
+
+Make sure you've installed `Python >= 3.8`.
 ```
 usage: python -m basars.train 
                 [-h] --type {stairs,proj}
@@ -34,6 +36,11 @@ optional arguments:
   --cache-dataset CACHE_DATASET
                         True to cache datasets on memory otherwise don't. Default value is True
 ```
+#### Training `proj` Model
+```
+python -m basars.train --type proj --epochs 1290
+```
+
 
 ### Configuration Guide
 Refer the repository: [final-experiments](https://github.com/Basars/final-experiments)
