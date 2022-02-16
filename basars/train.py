@@ -104,13 +104,14 @@ callbacks = [ModelCheckpoint('{}-best-loss.h5'.format(model_name),
 print()
 print('Preparing datasets...')
 
-datasets = load_dataset(train_paths, test_paths, valid_paths, cache=cache, imgsize=imgsize, num_classes=num_classes)
+datasets, num_images, num_masks = load_dataset(train_paths, test_paths, valid_paths,
+                                               cache=cache, imgsize=imgsize, num_classes=num_classes)
 print('{} datasets prepared.'.format(len(datasets)))
 
 train_dataset = datasets['train']
 valid_dataset = datasets['valid']
 
-steps_per_epoch = len(train_dataset) / epochs
+steps_per_epoch = int(num_images / epochs)
 
 train_dataset = train_dataset.shuffle(buffer_size).batch(batch_size).repeat()
 train_dataset = train_dataset.prefetch(tf.data.experimental.AUTOTUNE)

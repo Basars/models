@@ -136,4 +136,4 @@ def load_dataset(train_paths, test_paths, valid_paths, cache=True, imgsize=224, 
         img_paths, mask_paths, df = prepare_datasets_on_memory(*paths)
         dataset = parse_dataset(img_paths, mask_paths, df, cache, imgsize=imgsize, num_classes=num_classes)
         datasets[key] = dataset
-    return datasets
+    return datasets, len(img_paths), len(mask_paths)
