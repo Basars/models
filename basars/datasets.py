@@ -131,9 +131,11 @@ def load_dataset(train_paths, test_paths, valid_paths, cache=True, imgsize=224, 
     img_paths, mask_paths, df = prepare_datasets_on_memory(*train_paths)
     train_dataset = parse_dataset(img_paths, mask_paths, df, cache, augment=True, imgsize=imgsize, num_classes=num_classes)
 
+    train_img_paths, train_mask_paths = img_paths, mask_paths
+
     datasets = {'train': train_dataset}
     for key, paths in zip(['test', 'valid'], [test_paths, valid_paths]):
         img_paths, mask_paths, df = prepare_datasets_on_memory(*paths)
         dataset = parse_dataset(img_paths, mask_paths, df, cache, imgsize=imgsize, num_classes=num_classes)
         datasets[key] = dataset
-    return datasets, len(img_paths), len(mask_paths)
+    return datasets, len(train_img_paths), len(train_mask_paths)

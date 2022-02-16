@@ -42,12 +42,12 @@ parser.add_argument('--cache-dataset',
 args = parser.parse_args()
 
 model_type = args.type
-num_classes = args.num_classes
+num_classes = int(args.num_classes)
 model_name = 'basars-{}'.format(model_type)
-buffer_size = args.buffer_size
-batch_size = args.batch_size
-epochs = args.epochs
-multiprocessing_workers = args.multiprocessing_workers
+buffer_size = int(args.buffer_size)
+batch_size = int(args.batch_size)
+epochs = int(args.epochs)
+multiprocessing_workers = int(args.multiprocessing_workers)
 cache = args.cache_dataset
 imgsize = 224
 
