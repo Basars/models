@@ -21,19 +21,15 @@ parser.add_argument('--type',
                     default='stairs',
                     help='The type of transformer model')
 parser.add_argument('--num-classes',
-                    required=True,
                     default=5,
                     help='Number of classes to be classified.')
 parser.add_argument('--epochs',
-                    required=True,
                     default=1290,
                     help='Epochs that how many times the model would be trained')
 parser.add_argument('--batch_size',
-                    required=True,
                     default=64,
                     help='The batch size')
 parser.add_argument('--buffer_size',
-                    required=True,
                     default=1024,
                     help='The buffer size for shuffling datasets')
 parser.add_argument('--multiprocessing-workers',
