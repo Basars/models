@@ -4,8 +4,10 @@ from basars_addons.metrics import ThresholdPrecision, ThresholdRecall
 class MaskedThresholdPrecision(ThresholdPrecision):
 
     def __init__(self,
-                 mask, inverse=False, threshold=0.5, thresholds=None, top_k=None, class_id=None, name=None, dtype=None):
-        super(MaskedThresholdPrecision, self).__init__(threshold, thresholds, top_k, class_id, name, dtype)
+                 mask, inverse=False,
+                 threshold=0.5, thresholds=None, top_k=None, class_id=None, from_logits=False,
+                 name=None, dtype=None):
+        super(MaskedThresholdPrecision, self).__init__(threshold, thresholds, top_k, class_id, from_logits, name, dtype)
 
         self.mask = mask
         self.inverse = inverse
@@ -24,8 +26,10 @@ class MaskedThresholdPrecision(ThresholdPrecision):
 class MaskedThresholdRecall(ThresholdRecall):
 
     def __init__(self,
-                 mask, inverse=False, threshold=0.5, thresholds=None, top_k=None, class_id=None, name=None, dtype=None):
-        super(MaskedThresholdRecall, self).__init__(threshold, thresholds, top_k, class_id, name, dtype)
+                 mask, inverse=False,
+                 threshold=0.5, thresholds=None, top_k=None, class_id=None, from_logits=False,
+                 name=None, dtype=None):
+        super(MaskedThresholdRecall, self).__init__(threshold, thresholds, top_k, class_id, from_logits, name, dtype)
 
         self.mask = mask
         self.inverse = inverse

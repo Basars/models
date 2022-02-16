@@ -2,8 +2,8 @@ from basars_addons.metrics import ThresholdBinaryIoU
 
 
 class MaskedThresholdBinaryIoU(ThresholdBinaryIoU):
-    def __init__(self, num_classes, mask, inverse=False, threshold=0.5, name=None, dtype=None):
-        super(MaskedThresholdBinaryIoU, self).__init__(num_classes, threshold, name, dtype)
+    def __init__(self, num_classes, mask, inverse=False, threshold=0.5, from_logits=False, name=None, dtype=None):
+        super(MaskedThresholdBinaryIoU, self).__init__(num_classes, threshold, from_logits, name, dtype)
 
         self.mask = mask
         self.inverse = inverse
