@@ -51,6 +51,15 @@ multiprocessing_workers = int(args.multiprocessing_workers)
 cache = args.cache_dataset
 imgsize = 224
 
+print()
+print('Arguments Information:')
+print('Model name: {}'.format(model_name))
+print('Number of classes: {}'.format(num_classes))
+print('Batch size: {}'.format(batch_size))
+print('Buffer size: {}'.format(buffer_size))
+print('Epochs: {}'.format(epochs))
+print('Number of multiprocessing workers: {}'.format(multiprocessing_workers))
+
 # TODO: Change to command-line arguments
 train_paths = ('datasets/train', 'datasets/train_masks', 'datasets/train_labels.csv')
 test_paths = ('datasets/test', 'datasets/test_masks', 'datasets/test_labels.csv')
@@ -110,12 +119,14 @@ print('{} datasets prepared.'.format(len(datasets)))
 
 train_dataset = datasets['train']
 valid_dataset = datasets['valid']
+test_dataset = datasets['test']
 
 steps_per_epoch = int(num_images / epochs)
 
 train_dataset = train_dataset.shuffle(buffer_size).batch(batch_size).repeat()
 train_dataset = train_dataset.prefetch(tf.data.experimental.AUTOTUNE)
 valid_dataset = valid_dataset.batch(batch_size)
+test_dataset = test_dataset.batch(batch_size)
 
 print()
 print('Training model: {}'.format(model_name))
@@ -129,6 +140,12 @@ model.fit(train_dataset,
           workers=multiprocessing_workers)
 
 print('Finished training.')
+
+print()
+print('Evaluating model...')
+loss, binary_iou = model.evaluate(test_dataset)
+print('Loss: {}'.format(loss))
+print('IoU: {}'.format(binary_iou))
 
 print()
 print('Saving the latest checkpoint')
