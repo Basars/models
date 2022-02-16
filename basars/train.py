@@ -48,6 +48,7 @@ buffer_size = args.buffer_size
 batch_size = args.batch_size
 epochs = args.epochs
 multiprocessing_workers = args.multiprocessing_workers
+cache = args.cache_dataset
 imgsize = 224
 
 # TODO: Change to command-line arguments
@@ -103,7 +104,7 @@ callbacks = [ModelCheckpoint('{}-best-loss.h5'.format(model_name),
 print()
 print('Preparing datasets...')
 
-datasets = load_dataset(train_paths, test_paths, valid_paths, cache=args.cache, imgsize=imgsize, num_classes=num_classes)
+datasets = load_dataset(train_paths, test_paths, valid_paths, cache=cache, imgsize=imgsize, num_classes=num_classes)
 print('{} datasets prepared.'.format(len(datasets)))
 
 train_dataset = datasets['train']
