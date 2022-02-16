@@ -79,6 +79,8 @@ batch_size *= strategy.num_replicas_in_sync
 
 print()
 print('Compiling \'{}\'...'.format(model_name))
+scheduler = CosineDecayWarmupRestarts(100, initial_learning_rate=1e-3, first_decay_steps=300, t_mul=1.0)
+
 with strategy.scope():
     cce = CategoricalCrossentropy(reduction=Reduction.NONE)
     dice = Dice(num_classes=num_classes, reduction=Reduction.NONE)
@@ -93,7 +95,6 @@ with strategy.scope():
 
         return cce_loss * 0.5 + dice_loss * 0.5
 
-    scheduler = CosineDecayWarmupRestarts(100, initial_learning_rate=1e-3, first_decay_steps=300, t_mul=1.0)
     optimizer = SGD(learning_rate=scheduler, momentum=0.9)
 
     model = model_loader(name=model_name)
