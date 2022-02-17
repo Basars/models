@@ -85,7 +85,9 @@ model.load_weights('basars-cls5-proj.h5')
 
 ### Samples
 
-![r0](https://github.com/Basars/models/blob/main/static/r0.png)
-![r1](https://github.com/Basars/models/blob/main/static/r1.png)
-![r2](https://github.com/Basars/models/blob/main/static/r2.png)
-![r3](https://github.com/Basars/models/blob/main/static/r3.png)
+<p align='center'>
+  <img alt='sample0' src="https://github.com/Basars/models/blob/main/static/r0.png">
+  <img alt='sample1' src="https://github.com/Basars/models/blob/main/static/r1.png">
+  <img alt='sample2' src="https://github.com/Basars/models/blob/main/static/r2.png">
+  <img alt='sample3' src="https://github.com/Basars/models/blob/main/static/r3.png">
+</p>
