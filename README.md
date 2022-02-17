@@ -80,6 +80,9 @@ Sequential(name='ViT-proj', layers=[
 model.load_weights('basars-cls5-proj.h5')
 ```
 
+### Model Architecture
+![architecture](https://github.com/Basars/models/blob/main/static/architecture.png)
+
 ### Samples
 
 ![r0](https://github.com/Basars/models/blob/main/static/r0.png)
