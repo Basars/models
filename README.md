@@ -36,7 +36,7 @@ optional arguments:
   --cache-dataset CACHE_DATASET
                         True to cache datasets on memory otherwise don't. Default value is True
 ```
-#### Training `proj` Model
+#### Training Sample
 ```
 python -m basars.train --type proj --epochs 1290
 ```
